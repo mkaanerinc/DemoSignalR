@@ -10,12 +10,31 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <button type="button" class="btn btn-primary">
+
+            <div id="connectionId" class="alert alert-primary" role="alert"></div>
+
+            <button type="button" class="btn btn-success mx-1 my-1" disabled>
                 Connected Client Count <span id="span-connected-client-count" class="badge text-bg-secondary"></span>
             </button>
-            <button class="btn btn-primary" id="btn-send-message-all-client">
+
+            <button class="btn btn-primary mx-1 my-1" id="btn-send-message-all-client">
                 Tüm Client'lara gönder
             </button>
-        </div>
+
+            <button class="btn btn-primary mx-1 my-1" id="btn-send-message-caller-client">
+                İstek Yapan Client'a gönder
+            </button>
+
+            <button class="btn btn-primary mx-1 my-1" id="btn-send-message-others-client">
+                Diğer Client'lara gönder
+            </button>
+
+            <div>
+                <hr />
+                <input type="text" class="form-control mx-1 my-1" id="text-connectionId" placeholder="Connection Id" />
+                <button class="btn btn-primary mx-1 my-1" id="btn-send-message-individual-client">
+                    Spesifik Client'a gönder
+                </button>
+            </div>
     </div>
 </div>
