@@ -2,5 +2,6 @@
 
 public interface IExampleTypeSafeHub
 {
-    Task BroadcastMessageToAllClient(string message);
+    Task ReceiveMessageForAllClient(string message);
+    Task ReceiveConnectedClientCountAllClient(int clientCount);
 }

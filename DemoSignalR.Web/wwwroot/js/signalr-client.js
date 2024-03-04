@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     const broadcastMessageToAllClientHubMethodCall = "BroadcastMessageToAllClient";
-    const ReceiveMessageForAllClientClientMethodCall = "ReceiveMessageForAllClient";
+    const receiveMessageForAllClientClientMethodCall = "ReceiveMessageForAllClient";
+    const receiveConnectedClientCountAllClientMethodCall = "ReceiveConnectedClientCountAllClient";
     const connection = new signalR.HubConnectionBuilder().withUrl("/exampletypesafehub")
         .configureLogging(signalR.LogLevel.Information).build();
 
@@ -16,8 +17,14 @@
     }
 
     // Subscribe
-    connection.on(ReceiveMessageForAllClientClientMethodCall, (message) => {
+    connection.on(receiveMessageForAllClientClientMethodCall, (message) => {
         console.log("Gelen Mesaj", message);
+    })
+
+    var span_client_count = $("#span-connected-client-count");
+    connection.on(receiveConnectedClientCountAllClientMethodCall, (clientCount) => {
+        span_client_count.text(clientCount);
+        console.log("Connected Client Count", clientCount);
     })
 
     $("#btn-send-message-all-client").click(function () {
