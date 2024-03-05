@@ -6,6 +6,9 @@
     const broadcastMessageToAllClientHubMethodCall = "BroadcastMessageToAllClient";
     const receiveMessageForAllClientClientMethodCall = "ReceiveMessageForAllClient";
 
+    const broadcastTypedMessageToAllClientHubMethodCall = "BroadcastTypedMessageToAllClient";
+    const receiveTypedMessageForAllClientClientMethodCall = "ReceiveTypedMessageForAllClient";
+
     const broadcastMessageToCallerClientHubMethodCall = "BroadcastMessageToCallerClient";
     const receiveMessageForCallerClientMethodCall = "ReceiveMessageForCallerClient";
 
@@ -115,6 +118,9 @@
     connection.on("ReceiveMessageForGroupClient", (message) => {
         console.log("Gelen Mesaj", message);
     })
+    connection.on(receiveTypedMessageForAllClientClientMethodCall, (product) => {
+        console.log("Gelen Ürün", product);
+    })
 
     $("#btn-send-message-all-client").click(function () {
         const message = "hello word";
@@ -138,6 +144,11 @@
         const connectionId = $("#text-connectionId").val();
         const message = "hello word";
         connection.invoke(broadcastMessageToIndividualClientHubMethodCall,connectionId,message).catch(err => console.log
+            ("hata", err));
+    })
+    $("#btn-send-typed-message-all-client").click(function () {
+        const product = { id: 1, name: "pen 1", price: 200 };
+        connection.invoke(broadcastTypedMessageToAllClientHubMethodCall, product).catch(err => console.log
             ("hata", err));
     })
 })
