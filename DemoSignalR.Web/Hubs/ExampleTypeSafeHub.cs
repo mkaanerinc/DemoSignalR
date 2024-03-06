@@ -38,6 +38,31 @@ public class ExampleTypeSafeHub: Hub<IExampleTypeSafeHub>
         await Clients.Group(groupName).ReceiveMessageForGroupClient(message);
     }
 
+    public async Task BroadcastStreamDataToAllClient(IAsyncEnumerable<string> nameAsChunks)
+    {
+        await foreach(var name in nameAsChunks)
+        {
+            await Clients.All.ReceiveMessageAsStreamForAllClient(name);
+        }
+    }
+
+    public async Task BroadcastStreamProductToAllClient(IAsyncEnumerable<Product> productAsChunks)
+    {
+        await foreach (var product in productAsChunks)
+        {
+            await Clients.All.ReceiveProductAsStreamForAllClient(product);
+        }
+    }
+
+    public async IAsyncEnumerable<string> BroadcastFromHubToClient(int count)
+    {
+        foreach(var item in Enumerable.Range(1, count).ToList()) {
+
+            await Task.Delay(1000);
+            yield return $"{item}. data";
+        }
+    }
+
     public async Task AddGroup(string groupName)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId,groupName);

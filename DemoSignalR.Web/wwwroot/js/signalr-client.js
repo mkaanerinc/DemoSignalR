@@ -24,6 +24,30 @@
     const groupB = "GroupB";
     let currentGroupList = [];
 
+    async function start() {
+
+        try {
+
+            await connection.start().then(() => {
+                $("#connectionId").html(`Connection Id: ${connection.connectionId}`);
+                console.log("Hub ile bağlantı kuruldu");
+            })
+
+        }
+        catch
+        {
+
+            setTimeout(() => start(), 5000);
+
+        }
+    }
+
+    connection.onclose(async () => {
+        await start();
+    })
+
+    start();
+
     function refreshGroupList() {
         $("#groupList").empty();
         currentGroupList.forEach(x => {
@@ -80,21 +104,6 @@
         connection.invoke("BroadcastMessageToGroupClient", groupB, message).catch(err => console.log
             ("hata", err));
     })
-
-    function start() {
-        connection.start().then(() => {
-            $("#connectionId").html(`Connection Id: ${connection.connectionId}`);
-            console.log("Hub ile bağlantı kuruldu");
-        })
-    }
-
-    try {
-        start();
-    }
-    catch {
-        setTimeout(() => start(),5000);
-    }
-
 
     const span_client_count = $("#span-connected-client-count");
     connection.on(receiveConnectedClientCountAllClientMethodCall, (clientCount) => {
