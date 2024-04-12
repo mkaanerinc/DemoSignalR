@@ -1,11 +1,19 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SignalRSampleProject.Web.Models;
+using SignalRSampleProject.Web.Services;
+using System.Threading.Channels;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<FileService>();
+builder.Services.AddSingleton(Channel.CreateUnbounded<(string userId, List<Product> products)>());
+//builder.Services.AddSingleton(Channel.CreateUnbounded<Tuple<string,List<Product>>>());
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

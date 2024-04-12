@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SignalRSampleProject.Web.Models;
 using SignalRSampleProject.Web.Models.ViewModels;
+using SignalRSampleProject.Web.Services;
 using System.Diagnostics;
 
 namespace SignalRSampleProject.Web.Controllers
 {
     public class HomeController(ILogger<HomeController> logger,UserManager<IdentityUser>
-        userManager, SignInManager<IdentityUser> signInManager, AppDbContext context) : Controller
+        userManager, SignInManager<IdentityUser> signInManager, AppDbContext context, 
+        FileService fileService) : Controller
     {
         //private readonly ILogger<HomeController> _logger;
 
@@ -109,6 +112,18 @@ namespace SignalRSampleProject.Web.Controllers
             await context.SaveChangesAsync();
 
             return View(productList);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> CreateExcel()
+        {
+            var response = new
+            {
+                Status = await fileService.AddMessageToQueue()
+            };
+
+            return Json(response);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
