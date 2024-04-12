@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace SignalRSampleProject.Web.Controllers
 {
     public class HomeController(ILogger<HomeController> logger,UserManager<IdentityUser>
-        userManager, SignInManager<IdentityUser> signInManager) : Controller
+        userManager, SignInManager<IdentityUser> signInManager, AppDbContext context) : Controller
     {
         //private readonly ILogger<HomeController> _logger;
 
@@ -82,9 +82,33 @@ namespace SignalRSampleProject.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult ProductList()
+        public async Task<IActionResult> ProductList()
         {
-            return View();
+            var user = await userManager.FindByEmailAsync("deneme@gmail.com");
+
+
+            if (context.Products.Any(x => x.UserId == user!.Id))
+            {
+                var products = context.Products.Where(x => x.UserId == user!.Id).ToList();
+
+                return View(products);
+            }
+
+            var productList = new List<Product>()
+            {
+                new Product() { Name = "Pen 1", Description = "Description 1", Price = 100, UserId = user!.Id },
+                new Product() { Name = "Pen 2", Description = "Description 2", Price = 200, UserId = user!.Id },
+                new Product() { Name = "Pen 3", Description = "Description 3", Price = 300, UserId = user!.Id },
+                new Product() { Name = "Pen 4", Description = "Description 4", Price = 400, UserId = user!.Id },
+                new Product() { Name = "Pen 5", Description = "Description 5", Price = 500, UserId = user!.Id }
+
+            };
+
+            context.Products.AddRange(productList);
+
+            await context.SaveChangesAsync();
+
+            return View(productList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
