@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRClientConsoleApp", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRClientWorkerServiceApp", "SignalRClientWorkerServiceApp\SignalRClientWorkerServiceApp.csproj", "{7198D845-9551-4F02-889C-5C3E46E6AC4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoSignalR.API", "DemoSignalR.API\DemoSignalR.API.csproj", "{0FE0B4FE-027F-4EC4-9BB0-AEBB96C0FF81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoSignalR.API", "DemoSignalR.API\DemoSignalR.API.csproj", "{0FE0B4FE-027F-4EC4-9BB0-AEBB96C0FF81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRSampleProject.Web", "SignalRSampleProject.Web\SignalRSampleProject.Web.csproj", "{38518214-D36B-4033-8D84-48E1867DA966}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0FE0B4FE-027F-4EC4-9BB0-AEBB96C0FF81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FE0B4FE-027F-4EC4-9BB0-AEBB96C0FF81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FE0B4FE-027F-4EC4-9BB0-AEBB96C0FF81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38518214-D36B-4033-8D84-48E1867DA966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38518214-D36B-4033-8D84-48E1867DA966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38518214-D36B-4033-8D84-48E1867DA966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38518214-D36B-4033-8D84-48E1867DA966}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
